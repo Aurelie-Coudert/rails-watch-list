@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: %i[show]
+  before_action :set_list, only: [:show, :destroy]
 
   def index
     @lists = List.all
@@ -7,6 +7,7 @@ class ListsController < ApplicationController
 
   def show
     @bookmark = Bookmark.new
+    @review = Review.new(params[:list_id])
   end
 
   def new
@@ -20,6 +21,13 @@ class ListsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+
+    @list.reviews.destroy_all
+    @list.destroy
+    redirect_to lists_path
   end
 
   private
