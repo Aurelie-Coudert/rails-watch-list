@@ -27,7 +27,7 @@ class ListsController < ApplicationController
 
     @list.reviews.destroy_all
     @list.destroy
-    redirect_to lists_path
+    redirect_to lists_path, status: :see_other
   end
 
   private
